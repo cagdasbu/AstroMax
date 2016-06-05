@@ -1,0 +1,41 @@
+
+pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+asteroid
+  rotate: false
+  xy: 2, 2
+  size: 279, 277
+  orig: 279, 277
+  offset: 0, 0
+  index: -1
+asteroid-1
+  rotate: false
+  xy: 283, 23
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+astro-moving
+  rotate: false
+  xy: 2, 281
+  size: 558, 720
+  orig: 558, 720
+  offset: 0, 0
+  index: -1
+astro-stay
+  rotate: false
+  xy: 562, 49
+  size: 249, 350
+  orig: 249, 350
+  offset: 0, 0
+  index: -1
+bck-1
+  rotate: false
+  xy: 562, 401
+  size: 327, 600
+  orig: 327, 600
+  offset: 0, 0
+  index: -1
