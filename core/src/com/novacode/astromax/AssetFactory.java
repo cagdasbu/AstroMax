@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by cagdasbu on 03/06/2016.
- */
-public class Assets {
+public class AssetFactory {
+
+    private static AssetFactory instance;
+
 
     //disposable
     public static TextureAtlas atlas;
@@ -22,8 +22,14 @@ public class Assets {
     public static TextureRegion astro;
     public static TextureRegion astroMoving;
     public static TextureRegion background;
+    private static TextureRegion btnPlay;
+
     public static List<TextureRegion> asteroids = new ArrayList<TextureRegion>();
 
+
+    public static AssetFactory getInstance() {
+        return instance == null ? new AssetFactory() : instance;
+    }
 
 
     public static void load() {
@@ -34,6 +40,9 @@ public class Assets {
         background = atlas.findRegion("bck-1");
         asteroids.add(atlas.findRegion("asteroid"));
         asteroids.add(atlas.findRegion("asteroid-1"));
+
+        //menu button graphics
+        btnPlay = atlas.findRegion("btnPlay");
     }
 
 
@@ -46,6 +55,15 @@ public class Assets {
         }
     }
 
+    public static TextureRegion getBackground() {
+        return background;
+    }
 
+    public static void setBackground(TextureRegion background) {
+        AssetFactory.background = background;
+    }
 
+    public static TextureRegion getBtnPlay() {
+        return btnPlay;
+    }
 }

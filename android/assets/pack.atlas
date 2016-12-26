@@ -27,7 +27,7 @@ astro-moving
   index: -1
 astro-stay
   rotate: false
-  xy: 562, 49
+  xy: 562, 4
   size: 249, 350
   orig: 249, 350
   offset: 0, 0
@@ -37,5 +37,12 @@ bck-1
   xy: 562, 401
   size: 327, 600
   orig: 327, 600
+  offset: 0, 0
+  index: -1
+btnPlay
+  rotate: false
+  xy: 562, 356
+  size: 402, 43
+  orig: 402, 43
   offset: 0, 0
   index: -1

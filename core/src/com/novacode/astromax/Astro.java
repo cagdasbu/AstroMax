@@ -2,11 +2,8 @@ package com.novacode.astromax;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Logger;
 
@@ -32,12 +29,14 @@ public class Astro extends Actor {
 
     private Vector2 acceleration;
 
+    private float ACC_FACTOR = -.1f;
+
     private TextureRegion region;
 
     private State state;
 
     public Astro() {
-        region = Assets.astro;
+        region = AssetFactory.astro;
         setWidth(WIDTH);
         setHeight(HEIGHT);
         velocity = new Vector2(0, 0);
@@ -52,7 +51,7 @@ public class Astro extends Actor {
         super.act(delta);
         switch (state) {
             case ALIVE:
-                actAlive(delta);
+                actAlive(ACC_FACTOR);
                 break;
             case DEAD:
                 break;
@@ -61,11 +60,11 @@ public class Astro extends Actor {
     }
 
     private void actAlive(float delta) {
-        updatePosition(delta);
+        accelerate(delta);
 
         if (isAboveCeiling()) {
             setPosition(getX(Align.top), AstroMaxGame.HEIGHT, Align.top);
-            velocity.y = 0;
+            //velocity.y = 0;
             //state = State.DEAD;
         }
 
@@ -85,30 +84,19 @@ public class Astro extends Actor {
             velocity.x = 0;
             //  state = State.DEAD;
         }
+        updatePosition();
     }
 
 
+    public void freeze() {
+        velocity.y = 0;
+        velocity.x = 0;
+        state = State.DEAD;
+    }
+
     public void move(float targetX, float targetY) {
-
-        velocity.add(Math.abs(targetX - getX()) > 20 ? targetX > getX() ? 10 : -10 : 0 ,
-                Math.abs(targetY - getY()) > 20 ? targetY > getY() ?  10 : - 10 : 0);
-
-        if(Math.abs(velocity.x) > 50 || Math.abs(velocity.y) > 50) {
-            region = Assets.astroMoving;
-            this.setWidth(64);
-            this.setHeight(64);
-        } else {
-            region = Assets.astro;
-            this.setWidth(32);
-            this.setHeight(32);
-        }
-
-        setRotation(velocity.x == 0 && velocity.y == 0 ? 0 :(float)Math.toDegrees(Math.atan2(velocity.y, velocity.x))-90f);
-
-        System.out.println("targetX = [" + targetX + "], targetY = [" + targetY + "]");
-        System.out.println("targetX = [" + getX() + "], targetY = [" + getY() + "]");
-
-        System.out.println("velocity = " + velocity);
+        velocity.y=5;
+        updatePosition();
     }
 
     private boolean isBelowGround() {
@@ -129,13 +117,12 @@ public class Astro extends Actor {
 
     }
 
-    private void updatePosition(float delta) {
-        setX(getX() + velocity.x * delta);
-        setY(getY() + velocity.y * delta);
+    private void updatePosition() {
+        setY(getY() + velocity.y);
     }
 
     private void accelerate(float delta) {
-        velocity.add(acceleration.x * delta, acceleration.y * delta);
+        velocity.add( 0, delta);
     }
 
     @Override
